@@ -1,0 +1,8 @@
+#Para ver en la linea de comandos el resultado del uso de map reducer con MRJob
+python total_accs_edad.py -q 2020_Accidentalidad.csv
+
+#Para generar un archivo de texto con el resultado del comando anterior
+python total_accs_edad.py -q 2020_Accidentalidad.csv  > accidentalidad_y_mortalidad_por_edades.txt
+
+# Para ver el archivo en la terminal de macOS
+cat total_accs_edad.py
