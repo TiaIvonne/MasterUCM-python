@@ -1,7 +1,16 @@
-from mrjob.job import MRJob, MRStep
+from mrjob.job import MRJob
 
 
 def rango_edad(edad):
+    """Dado un string que representa una edad
+    calcula su rango etario correspondiente.
+
+    Args:
+      edad: string que contiene descripcion de edades.
+
+    Returns:
+      Tupla numerica con las edades en numeros enteros.
+    """
     rangos = {
         'DE 0 A 5 AÑOS': (0, 5),
         'DE 6 A 9 AÑOS': (6, 9),
@@ -25,6 +34,16 @@ def rango_edad(edad):
 
 
 def entero(cadena):
+    """
+    Funcion auxiliar que toma un string que
+    representa la edad y la convierte en entero.
+
+    Args:
+      cadena: string que representa un numero
+
+    Returns:
+      int: cadena convertida a entero
+    """
     try:
         return int(cadena)
     except:
@@ -32,14 +51,35 @@ def entero(cadena):
 
 
 def arma_lista(lista):
-    accidentes, muertes = [], []
-    for i in lista:
-        accidentes.append(i[0])
-        muertes.append(i[1])
-    return [sum(accidentes), sum(muertes)]
+    """Funcion auxliar que guarda los accidentes,
+    las muertes y retorna la suma para cada lista
+    generada.
+
+    Args:
+      lista: lista que contiene la cuenta de accidentes
+      y muertes.
+
+    Returns:
+      Tupla con la suma de accidentes y suma de muertes.
+    """
+    accidentes = []
+    muertes = []
+    for i, (a, m) in enumerate(lista):
+        accidentes.append(a)
+        muertes.append(m)
+    return (sum(accidentes), sum(muertes))
 
 
 class Cuenta(MRJob):
+    """
+    La clase Cuenta llama a MrJob para en un inicio
+    mapear linea a linea los accidentes y despues
+    contar los accidentes con lesividad igual a 4
+
+    Attributes:
+        linea: cada linea leida que sera mapeada
+    """
+
     def mapper(self, _, linea):
         accidentes, muertes = 0, 0
         row = linea.split(';')
@@ -50,7 +90,7 @@ class Cuenta(MRJob):
             if lesividad == 4:
                 muertes = 1
             yield edad, [accidentes, muertes]
-   
+
     def reducer(self, key, values):
         yield key, arma_lista(values)
 

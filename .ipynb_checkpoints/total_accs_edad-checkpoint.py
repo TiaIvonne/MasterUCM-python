@@ -29,14 +29,14 @@ def entero(cadena):
         return int(cadena)
     except:
         return 0
-
-
+    
 def arma_lista(lista):
-    accidentes, muertes = [], []
-    for i in lista:
-        accidentes.append(i[0])
-        muertes.append(i[1])
-    return [sum(accidentes), sum(muertes)]
+    accidentes = []
+    muertes = []
+    for i, (a, m) in enumerate(lista):
+        accidentes.append(a)
+        muertes.append(m)
+    return (sum(accidentes), sum(muertes))
 
 
 class Cuenta(MRJob):
