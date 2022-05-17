@@ -2,14 +2,28 @@ from mrjob.job import MRJob
 
 
 def rango_edad(edad):
-    """Dado un string que representa una edad
+    """
+    Dado un string que representa una edad
     calcula su rango etario correspondiente.
 
-    Args:
-      edad: string que contiene descripcion de edades.
+    Parameters:
+    -----------
+    edad:
+      string que contiene descripcion de edades.
+
+    Precondition:
+    -------------
+    edad == string
 
     Returns:
-      Tupla numerica con las edades en numeros enteros.
+    --------
+        tuple
+        Tupla numerica con las edades en numeros enteros.
+
+    Example:
+    --------
+    >>>rango_edad('DE 0 A 5 AÑOS')
+    (0,5)
     """
     rangos = {
         'DE 0 A 5 AÑOS': (0, 5),
@@ -36,13 +50,22 @@ def rango_edad(edad):
 def entero(cadena):
     """
     Funcion auxiliar que toma un string que
-    representa la edad y la convierte en entero.
+    representa la lesividad y la convierte en entero.
 
-    Args:
-      cadena: string que representa un numero
+    Parameters:
+    -----------
+    cadena: 
+      string que representa un codigo de accidente
 
     Returns:
-      int: cadena convertida a entero
+    --------
+        int
+        Entero que representa el codigo de accidente.
+
+    Example:
+    --------
+    >>>entero('4')
+    4
     """
     try:
         return int(cadena)
@@ -51,16 +74,26 @@ def entero(cadena):
 
 
 def arma_lista(lista):
-    """Funcion auxliar que guarda los accidentes,
+    """
+    Funcion auxliar que guarda los accidentes,
     las muertes y retorna la suma para cada lista
-    generada.
+    generada, esta funcion se usa en el reducer.
 
-    Args:
-      lista: lista que contiene la cuenta de accidentes
+    Parameters:
+    -----------
+    lista:
+      lista que contiene la cuenta de accidentes
       y muertes.
 
     Returns:
-      Tupla con la suma de accidentes y suma de muertes.
+    --------
+        tuple
+        Tupla con la suma de accidentes y suma de muertes.
+
+    Example:
+    --------
+    >>>arma_lista(values)
+    (3437, 3)
     """
     accidentes = []
     muertes = []
